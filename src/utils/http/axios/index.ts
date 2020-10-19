@@ -18,6 +18,7 @@ import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
 import { isString } from '/@/utils/is';
 import { formatRequestDate } from '/@/utils/dateUtil';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
+import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 
 const { globSetting } = useSetting();
@@ -151,7 +152,7 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    setupErrorHandle(error);
+    errorStore.setupErrorHandle(error);
     const { response, code, message } = error || {};
     const msg: string =
       response && response.data && response.data.error ? response.data.error.message : '';
