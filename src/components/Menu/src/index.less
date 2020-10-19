@@ -14,6 +14,15 @@
 }
 
 .basic-menu {
+  &.collapsed-show-title.ant-menu-inline-collapsed {
+    & > li > .ant-menu-submenu-title {
+      display: flex;
+      margin-top: 12px;
+      font-size: 12px;
+      flex-direction: column;
+    }
+  }
+
   &__wrap {
     /* 滚动槽 */
     &::-webkit-scrollbar {
@@ -211,13 +220,6 @@
       height: @app-menu-item-height;
       margin: 0;
       align-items: center;
-    }
-
-    &.ant-menu-inline-collapsed {
-      .ant-menu-item-selected {
-        background: unset !important;
-        box-shadow: none;
-      }
     }
 
     &.ant-menu-inline-collapsed {

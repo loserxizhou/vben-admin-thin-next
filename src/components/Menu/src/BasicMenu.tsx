@@ -45,7 +45,8 @@ export default defineComponent({
       menuState,
       toRef(props, 'items'),
       toRef(props, 'flatItems'),
-      toRef(props, 'isAppMenu')
+      toRef(props, 'isAppMenu'),
+      toRef(props, 'mode')
     );
 
     const getOpenKeys = computed(() => {
@@ -152,7 +153,13 @@ export default defineComponent({
       const { appendClass } = props;
       const levelCls = `basic-menu-item__level${index} ${menuState.theme} `;
 
-      const showTitle = props.isAppMenu ? !menuStore.getCollapsedState : true;
+      const showTitle = computed(() => {
+        if (!props.isAppMenu) return true;
+        if (!props.collapsedShowTitle) {
+          return !menuStore.getCollapsedState;
+        }
+        return true;
+      });
       return menuList.map((menu) => {
         if (!menu) {
           return null;
@@ -172,7 +179,7 @@ export default defineComponent({
                 <MenuContent
                   item={menu}
                   level={index}
-                  showTitle={showTitle}
+                  showTitle={unref(showTitle)}
                   searchValue={menuState.searchValue}
                 />,
               ]}
@@ -184,7 +191,7 @@ export default defineComponent({
             {{
               title: () => [
                 <MenuContent
-                  showTitle={showTitle}
+                  showTitle={unref(showTitle)}
                   item={menu}
                   level={index}
                   searchValue={menuState.searchValue}
@@ -218,7 +225,11 @@ export default defineComponent({
           inlineIndent={props.inlineIndent}
           theme={unref(theme)}
           onOpenChange={handleOpenChange}
-          class={['basic-menu', unref(transparentMenuClass)]}
+          class={[
+            'basic-menu',
+            props.collapsedShowTitle && 'collapsed-show-title',
+            unref(transparentMenuClass),
+          ]}
           {...inlineCollapsedObj}
         >
           {{
