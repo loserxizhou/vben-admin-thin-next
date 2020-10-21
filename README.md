@@ -102,6 +102,8 @@ yarn add qrcode
 
 yarn add vditor
 
+yarn add xlsx
+
 ```
 
 ### 开发环境
