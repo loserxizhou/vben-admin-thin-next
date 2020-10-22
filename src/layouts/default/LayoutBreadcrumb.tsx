@@ -15,7 +15,17 @@ export default defineComponent({
   name: 'BasicBreadcrumb',
   setup() {
     const itemList = ref<AppRouteRecordRaw[]>([]);
+
     const { currentRoute, push } = useRouter();
+
+    watch(
+      () => currentRoute.value,
+      () => {
+        if (unref(currentRoute).name === 'Redirect') return;
+        getBreadcrumb();
+      },
+      { immediate: true }
+    );
 
     function getBreadcrumb() {
       const { matched } = unref(currentRoute);
@@ -39,11 +49,13 @@ export default defineComponent({
       if (homeRoute.name === firstItem.name) return false;
       return homeRoute;
     }
+
     function pathCompile(path: string) {
       const { params } = unref(currentRoute);
       const toPath = compile(path);
       return toPath(params);
     }
+
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect, path, meta } = item;
       if (meta.disabledRedirect) return;
@@ -54,40 +66,30 @@ export default defineComponent({
       return push(pathCompile(path));
     }
 
-    watch(
-      () => currentRoute.value,
-      () => {
-        if (unref(currentRoute).name === 'Redirect') return;
-        getBreadcrumb();
-      },
-      { immediate: true }
-    );
-
     return () => (
-      <>
-        <Breadcrumb class="layout-breadcrumb">
-          {() => (
-            <>
-              <TransitionGroup name="breadcrumb">
-                {() => {
-                  return unref(itemList).map((item) => {
-                    const isLink = !!item.redirect && !item.meta.disabledRedirect;
-                    return (
-                      <BreadcrumbItem
-                        key={item.path}
-                        isLink={isLink}
-                        onClick={handleItemClick.bind(null, item)}
-                      >
-                        {() => item.meta.title}
-                      </BreadcrumbItem>
-                    );
-                  });
-                }}
-              </TransitionGroup>
-            </>
-          )}
-        </Breadcrumb>
-      </>
+      <Breadcrumb class="layout-breadcrumb">
+        {() => (
+          <TransitionGroup name="breadcrumb">
+            {() => {
+              return unref(itemList).map((item) => {
+                const isLink =
+                  (!!item.redirect && !item.meta.disabledRedirect) ||
+                  !item.children ||
+                  item.children.length === 0;
+                return (
+                  <BreadcrumbItem
+                    key={item.path}
+                    isLink={isLink}
+                    onClick={handleItemClick.bind(null, item)}
+                  >
+                    {() => item.meta.title}
+                  </BreadcrumbItem>
+                );
+              });
+            }}
+          </TransitionGroup>
+        )}
+      </Breadcrumb>
     );
   },
 });

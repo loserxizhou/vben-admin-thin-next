@@ -42,10 +42,14 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[]) {
   routes.forEach((item) => {
-    const { component, children } = item;
-    if (component) {
-      item.component = () => import(`/@/views/${component}`);
-    }
+    const {
+      // component,
+      children,
+    } = item;
+    // 需要开启动态路由可见打开注释
+    // if (component) {
+    //   item.component = () => import(`/@/views/${component}`);
+    // }
     children && asyncImportRoute(children);
   });
 }

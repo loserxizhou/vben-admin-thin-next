@@ -5,7 +5,7 @@
 </p>
 <h2 align="center">Vben Admin Thin Next</h2>
 
-**中文**
+**中文** | [English](./README.en-US.md)
 
 - [介绍](#介绍)
 - [gitHub 地址](#github-地址)
@@ -77,7 +77,9 @@
 - [ ] 在`public/resource/`和`/src/assets/images/logo.png`中修改 `logo.png`
 - [ ] 在`.env[xxx]`文件中修改相关项目配置
 - [ ] 在`src/settings/projectSetting.ts`内调整适合自己的项目风格
-- [ ] 项目默认启用角色来控制菜单，且后台请求菜单已被注释，如果需要使用后台动态生成路由。请将`/src/store/modules/permission.ts`内的关于动态请求菜单的注释放开
+- [ ] 项目默认启用角色来控制菜单，且后台请求菜单已被注释，如果需要使用后台动态生成路由。
+  - 请将`/src/store/modules/permission.ts`内的关于动态请求菜单的注释放开
+  - 请将`/src/utils/helper/routeHelper.ts`内的关于动态请求菜单的注释放开
 
 ## 注意
 

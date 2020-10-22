@@ -81,6 +81,7 @@ export default defineComponent({
         headerSetting: { theme: headerTheme, useLockPage, showRedo, showFullScreen, showNotice },
         menuSetting: { mode, type: menuType, split: splitMenu, topMenuAlign },
         showBreadCrumb,
+        showBreadCrumbIcon,
       } = getProjectConfig;
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
@@ -93,7 +94,7 @@ export default defineComponent({
                 {showLogo && !isSidebarType && <Logo class={`layout-header__logo`} />}
 
                 {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
-                  <LayoutBreadcrumb />
+                  <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
                 )}
                 {unref(showTopMenu) && (
                   <div
