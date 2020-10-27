@@ -2,7 +2,7 @@ import type { ProjectConfig } from '/@/types/config';
 
 import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
-import { primaryColor } from '../../build/config/glob/lessModifyVars';
+import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
 // ! 改动后需要清空浏览器缓存
 const setting: ProjectConfig = {
@@ -104,7 +104,7 @@ const setting: ProjectConfig = {
   openRouterTransition: true,
 
   // 路由切换动画
-  routerTransition: RouterTransitionEnum.ZOOM_FADE,
+  routerTransition: RouterTransitionEnum.FADE_SIDE,
 
   // 是否开启登录安全校验
   openLoginVerify: true,

@@ -1,4 +1,37 @@
-## # 2.0.0-rc.5 (2020-10-26)
+## 2.0.0-rc.6 (2020-10-28)
+
+### ✨ Features
+
+- 新增`pwa`功能，可在`.env.production`开启
+- Button 组件扩展 `preIcon`和`postIcon`属性用于在文本前后添加图标
+- 恢复面包屑显示图标功能
+
+### 🎫 Chores
+
+- 升级 vite 版本为`v1.0.0.rc8`
+- vite.config.ts 内部 plugins 抽取
+- build 目录结构调整
+- 依赖更新
+- 文档更新
+- 修改默认路由切换动画
+
+### ⚡ Performance Improvements
+
+- `setTitle`逻辑调整
+- 将系统用到的 sessionStorage 及 LocalStorage 缓存设置默认 `7` 天过期
+
+### ✨ Refactor
+
+- 独立出`vite-plugin-html`,并修改相关插入 html 的逻辑
+
+### 🐛 Bug Fixes
+
+- 修复热更新时多次注册组件警告问题
+- 修复登录后出现登录标签页
+- 修复路由切换参数消失问题
+- 修复 useMessage 图标样式问题
+
+## 2.0.0-rc.5 (2020-10-26)
 
 ### ✨ Features
 

@@ -1,7 +1,12 @@
 <template>
   <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
-    <template #[item]="data" v-for="item in Object.keys($slots)">
+    <!-- <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data" />
+    </template> -->
+    <template #default="data">
+      <Icon :icon="preIcon" class="mr-1" v-if="preIcon" />
+      <slot v-bind="data" />
+      <Icon :icon="postIcon" class="ml-1" v-if="postIcon" />
     </template>
   </Button>
 </template>
@@ -13,10 +18,11 @@
   // import { extendSlots } from '/@/utils/helper/tsxHelper';
   import { useThrottle } from '/@/hooks/core/useThrottle';
   import { isFunction } from '/@/utils/is';
+  import Icon from '/@/components/Icon';
   export default defineComponent({
     name: 'AButton',
     inheritAttrs: false,
-    components: { Button },
+    components: { Button, Icon },
     props: {
       // 按钮类型
       type: {
@@ -43,6 +49,12 @@
       disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
+      },
+      preIcon: {
+        type: String as PropType<string>,
+      },
+      postIcon: {
+        type: String as PropType<string>,
       },
     },
     setup(props, { attrs }) {
