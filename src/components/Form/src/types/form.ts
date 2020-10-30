@@ -1,4 +1,4 @@
-import type { Form, NamePath, ValidationRule } from 'ant-design-vue/types/form/form';
+import type { NamePath, RuleObject } from 'ant-design-vue/lib/form/interface';
 import type { VNode } from 'vue';
 import type { BasicButtonProps } from '/@/components/Button/types';
 import type { FormItem } from './formItem';
@@ -17,7 +17,7 @@ export interface ButtonProps extends BasicButtonProps {
   text?: string;
 }
 
-export interface FormActionType extends Form {
+export interface FormActionType {
   submit: () => Promise<void>;
   setFieldsValue: <T>(values: T) => void;
   resetFields: () => Promise<any>;
@@ -29,12 +29,15 @@ export interface FormActionType extends Form {
   appendSchemaByField: (schema: FormSchema, prefixField?: string) => void;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: (nameList?: NamePath[]) => Promise<any>;
+  scrollToField: (name: NamePath, options?: ScrollOptions) => void;
 }
 export type RegisterFn = (formInstance: FormActionType) => void;
 
 export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
+  // 表单值
+  model?: any;
   // 整个表单所有项宽度
   labelWidth?: number | string;
   // 重置时提交
@@ -111,7 +114,7 @@ export interface FormSchema {
   componentProps?: any;
 
   // 校验规则
-  rules?: ValidationRule[];
+  rules?: RuleObject[];
   // 校验信息是否加入label
   rulesMessageJoinLabel?: boolean;
 
@@ -148,7 +151,7 @@ export interface FormSchema {
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
-  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => ValidationRule[];
+  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => RuleObject[];
 }
 export interface HelpComponentProps {
   maxWidth: string;

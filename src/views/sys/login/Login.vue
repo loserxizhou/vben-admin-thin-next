@@ -15,7 +15,6 @@
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
-                autofocus="autofocus"
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"
@@ -30,7 +29,7 @@
                 type="primary"
                 size="large"
                 class="rounded-sm"
-                block
+                :block="true"
                 @click="login"
                 :loading="formState.loading"
                 >登录</a-button

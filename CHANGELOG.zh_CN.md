@@ -1,3 +1,42 @@
+## Wip
+
+### ✨ Features
+
+- 表单组件现在支持直接传入 model 直接进行 set 操作，参考**组件->弹窗扩展->打开弹窗并传递数据**
+
+- modal 的 useModalInner 现在支持传入回调函数，用于接收外部`transferModalData`传进来的值，
+
+  - 用于处理打开弹窗对表单等组件的设置值。参考**组件->弹窗扩展->打开弹窗并传递数据**
+  - `receiveModalDataRef`这个值暂时保留。尽量少用。后续可能会删除。
+
+- drawer 的 useDrawerInner 现在支持传入回调函数，用于接收外部`transferModalData`传进来的值，
+  - 用于处理打开抽屉对表单等组件的设置值。参考**组件->抽屉扩展->打开抽屉并传递数据**
+  - `receiveModalDataRef`这个值暂时保留。尽量少用。后续可能会删除。
+
+### ✨ Refactor
+
+- 表单代码优化重构
+
+### ⚡ Performance Improvements
+
+- Modal slot 可以覆盖
+- 优化表格嵌入高度计算问题
+
+### 🎫 Chores
+
+- 添加部分注释
+- pwa 图标补充
+- types 类型调整
+- 升级`ant-design-vue`到`beta.11`,并修改带来的已知问题,部分问题发现后在解决
+
+### 🐛 Bug Fixes
+
+- 修复本地代理 post 接口到 https 地址超时错误
+- 修复 modal 在不显示 footer 的时候全屏高度计算问题
+- 修复表单重置未删除校验信息错误
+- 修复顶部菜单分割模式样式问题
+- 修复表格展开图标动画失效
+
 ## 2.0.0-rc.6 (2020-10-28)
 
 ### ✨ Features

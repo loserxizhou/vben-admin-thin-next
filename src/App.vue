@@ -20,17 +20,23 @@
   moment.locale('zh-cn');
 
   export default defineComponent({
-    name: 'App1',
+    name: 'App',
     components: { ConfigProvider },
     setup() {
+      // Initialize application settings
       useInitAppConfigStore();
+      // Initialize network monitoring
       useListenerNetWork();
+      // Initialize breakpoint monitoring
       createBreakpointListen();
+      // Get system configuration
       const { projectSetting } = useSetting();
+      // Get ConfigProvider configuration
       const { transformCellText } = useConfigProvider();
 
       let lockOn = {};
       if (projectSetting.lockTime) {
+        // Monitor the mouse or keyboard time, used to recalculate the lock screen time
         const { on } = useLockPage();
         lockOn = on;
       }
