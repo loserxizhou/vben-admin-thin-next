@@ -102,7 +102,7 @@
 <style lang="less">
   .collapse-container {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 2px;
     transition: all 0.3s ease-in-out;
 
     &.no-shadow {

@@ -23,9 +23,7 @@
       ref="tableElRef"
       v-bind="getBindValues"
       :rowClassName="getRowClassName"
-      :class="{
-        hidden: !getEmptyDataIsShowTable,
-      }"
+      v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
@@ -35,22 +33,27 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, watch, nextTick, toRaw } from 'vue';
-  import { Table } from 'ant-design-vue';
-  import { basicProps } from './props';
   import type {
     BasicTableProps,
     FetchParams,
     GetColumnsParams,
     TableActionType,
     SizeType,
+    SorterResult,
+    TableCustomRecord,
   } from './types/table';
+  import { PaginationProps } from './types/pagination';
 
-  import { isFunction, isString } from '/@/utils/is';
-
+  import { defineComponent, ref, computed, unref, watch, nextTick, toRaw } from 'vue';
+  import { Table } from 'ant-design-vue';
   import renderTitle from './components/renderTitle';
   import renderFooter from './components/renderFooter';
   import renderExpandIcon from './components/renderExpandIcon';
+  import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
+
+  import { isFunction, isString } from '/@/utils/is';
+  import { deepMerge } from '/@/utils';
+  import { omit } from 'lodash-es';
 
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
@@ -59,14 +62,10 @@
   import { useRowSelection } from './hooks/useRowSelection';
   import { useTableScroll } from './hooks/useTableScroll';
   import { provideTable } from './hooks/useProvinceTable';
-  import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
-  import { omit } from 'lodash-es';
-  import { ROW_KEY } from './const';
-  import { PaginationProps } from './types/pagination';
-  import { deepMerge } from '/@/utils';
-  import { SorterResult, TableCustomRecord } from 'ant-design-vue/types/table/table';
-  import { useEvent } from '/@/hooks/event/useEvent';
 
+  import { useEvent } from '/@/hooks/event/useEvent';
+  import { basicProps } from './props';
+  import { ROW_KEY } from './const';
   import './style/index.less';
   export default defineComponent({
     props: basicProps,
@@ -199,7 +198,7 @@
         { immediate: true }
       );
 
-      function getRowClassName(record: TableCustomRecord<any>, index: number) {
+      function getRowClassName(record: TableCustomRecord, index: number) {
         const { striped, rowClassName } = unref(getMergeProps);
         if (!striped) return;
         if (rowClassName && isFunction(rowClassName)) {
@@ -218,6 +217,7 @@
 
       function handleTableChange(
         pagination: PaginationProps,
+        // @ts-ignore
         filters: Partial<Record<string, string[]>>,
         sorter: SorterResult<any>
       ) {

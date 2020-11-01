@@ -55,18 +55,19 @@ export default defineComponent({
       }
       return menuState.openKeys;
     });
+
     // menu外层样式
     const getMenuWrapStyle = computed((): any => {
       const { showLogo, search } = props;
       let offset = 0;
       if (search) {
-        offset += 60;
-      }
-      if (showLogo) {
         offset += 54;
       }
+      if (showLogo) {
+        offset += 46;
+      }
       return {
-        height: `calc(100% - ${offset - 30}px)`,
+        height: `calc(100% - ${offset - 10}px)`,
         position: 'relative',
         overflow: 'auto',
       };
@@ -130,6 +131,7 @@ export default defineComponent({
       menuState.selectedKeys = [path];
       emit('menuClick', menu);
     }
+
     function handleMenuChange() {
       const { flatItems } = props;
       if (!unref(flatItems) || flatItems.length === 0) {
@@ -147,6 +149,7 @@ export default defineComponent({
     }
 
     const showTitle = computed(() => {
+      if (props.isTop) return true;
       if (!props.isAppMenu) return true;
       if (!props.collapsedShowTitle) {
         return !menuStore.getCollapsedState;
@@ -247,7 +250,6 @@ export default defineComponent({
     return () => {
       const { getCollapsedState } = menuStore;
       const { mode } = props;
-
       return mode === MenuModeEnum.HORIZONTAL ? (
         renderMenu()
       ) : (
