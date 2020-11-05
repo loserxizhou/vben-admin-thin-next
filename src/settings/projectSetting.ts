@@ -4,7 +4,7 @@ import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
-// ! 改动后需要清空浏览器缓存
+// ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
@@ -49,7 +49,7 @@ const setting: ProjectConfig = {
     // 折叠菜单时候是否显示菜单名
     collapsedShowTitle: false,
     // 是否可拖拽
-    hasDrag: true,
+    hasDrag: false,
     // 是否显示
     show: true,
     // 是否显示搜索框
@@ -66,6 +66,8 @@ const setting: ProjectConfig = {
     split: false,
     // 顶部菜单布局
     topMenuAlign: 'center',
+    // 折叠菜单时候隐藏搜索框
+    collapsedShowSearch: true,
   },
   // 消息配置
   messageSetting: {

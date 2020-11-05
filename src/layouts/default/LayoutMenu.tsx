@@ -109,8 +109,22 @@ export default defineComponent({
       // 菜单分割模式-left
       if (splitType === MenuSplitTyeEnum.LEFT) {
         const children = await getChildrenMenus(parentPath);
-        if (!children) return;
+        if (!children) {
+          appStore.commitProjectConfigState({
+            menuSetting: {
+              show: false,
+            },
+          });
+          flatMenusRef.value = [];
+          menusRef.value = [];
+          return;
+        }
         const flatChildren = await getFlatChildrenMenus(children);
+        appStore.commitProjectConfigState({
+          menuSetting: {
+            show: true,
+          },
+        });
         flatMenusRef.value = flatChildren;
         menusRef.value = children;
       }
@@ -182,7 +196,14 @@ export default defineComponent({
     return () => {
       const {
         showLogo,
-        menuSetting: { type: menuType, mode, theme, collapsed, collapsedShowTitle },
+        menuSetting: {
+          type: menuType,
+          mode,
+          theme,
+          collapsed,
+          collapsedShowTitle,
+          collapsedShowSearch,
+        },
       } = unref(getProjectConfigRef);
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
@@ -198,7 +219,7 @@ export default defineComponent({
           collapsedShowTitle={collapsedShowTitle}
           theme={themeData}
           showLogo={isShowLogo}
-          search={unref(showSearchRef) && !collapsed}
+          search={unref(showSearchRef) && (collapsedShowSearch ? true : !collapsed)}
           items={unref(menusRef)}
           flatItems={unref(flatMenusRef)}
           onClickSearchInput={handleClickSearchInput}
@@ -208,10 +229,7 @@ export default defineComponent({
           {{
             header: () =>
               isShowLogo && (
-                <Logo
-                  showTitle={!collapsed}
-                  class={[`layout-menu__logo`, collapsed ? 'justify-center' : '', themeData]}
-                />
+                <Logo showTitle={!collapsed} class={[`layout-menu__logo`, themeData]} />
               ),
           }}
         </BasicMenu>

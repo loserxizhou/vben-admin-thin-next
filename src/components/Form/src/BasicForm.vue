@@ -28,16 +28,7 @@
   import type { Ref } from 'vue';
   import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    computed,
-    unref,
-    toRef,
-    onMounted,
-    watchEffect,
-  } from 'vue';
+  import { defineComponent, reactive, ref, computed, unref, toRef, onMounted, watch } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './FormItem';
   import { basicProps } from './props';
@@ -62,8 +53,8 @@
       const formModel = reactive({});
 
       const actionState = reactive({
-        resetAction: {},
-        submitAction: {},
+        resetAction: () => {},
+        submitAction: () => {},
       });
 
       const advanceState = reactive<AdvanceState>({
@@ -153,10 +144,16 @@
         actionState,
       });
 
-      watchEffect(() => {
-        if (!unref(getMergePropsRef).model) return;
-        setFieldsValue(unref(getMergePropsRef).model);
-      });
+      watch(
+        () => unref(getMergePropsRef).model,
+        () => {
+          if (!unref(getMergePropsRef).model) return;
+          setFieldsValue(unref(getMergePropsRef).model);
+        },
+        {
+          immediate: true,
+        }
+      );
 
       /**
        * @description:设置表单

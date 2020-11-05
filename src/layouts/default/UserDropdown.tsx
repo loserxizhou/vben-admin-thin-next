@@ -25,9 +25,7 @@ export default defineComponent({
       return { realName, desc };
     });
 
-    /**
-     * @description: 退出登录
-     */
+    //  login out
     function handleLoginOut() {
       userStore.confirmLoginOut();
     }

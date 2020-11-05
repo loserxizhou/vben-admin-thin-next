@@ -14,6 +14,8 @@ import { createPlaceholderMessage } from './helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
 
 import { useItemLabelWidth } from './hooks/useLabelWidth';
+import { ComponentType } from './types';
+import { isNumber } from '../../../utils/is';
 
 export default defineComponent({
   name: 'BasicFormItem',
@@ -56,8 +58,9 @@ export default defineComponent({
 
     const getDisableRef = computed(() => {
       const { disabled: globDisabled } = props.formProps;
-      const { dynamicDisabled } = props.schema;
-      let disabled = !!globDisabled;
+      const { dynamicDisabled, componentProps = {} } = props.schema;
+      const { disabled: itemDisabled = false } = componentProps;
+      let disabled = !!globDisabled || itemDisabled;
       if (isBoolean(dynamicDisabled)) {
         disabled = dynamicDisabled;
       }
@@ -99,13 +102,19 @@ export default defineComponent({
         rulesMessageJoinLabel,
         label,
         dynamicRules,
+        required,
       } = props.schema;
 
       if (isFunction(dynamicRules)) {
         return dynamicRules(unref(getValuesRef));
       }
 
-      const rules: ValidationRule[] = cloneDeep(defRules);
+      let rules: ValidationRule[] = cloneDeep(defRules);
+
+      if ((!rules || rules.length === 0) && required) {
+        rules = [{ required }];
+      }
+
       const requiredRuleIndex: number = rules.findIndex(
         (rule) => Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator')
       );
@@ -144,6 +153,18 @@ export default defineComponent({
       return rules;
     }
 
+    function handleValue(component: ComponentType, field: string) {
+      const val = (props.formModel as any)[field];
+      if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
+        if (val && isNumber(val)) {
+          (props.formModel as any)[field] = `${val}`;
+          return `${val}`;
+        }
+        return val;
+      }
+      return val;
+    }
+
     function renderComponent() {
       const {
         componentProps,
@@ -161,11 +182,7 @@ export default defineComponent({
           if (propsData[eventKey]) {
             propsData[eventKey](e);
           }
-          if (e && e.target) {
-            (props.formModel as any)[field] = e.target.value;
-          } else {
-            (props.formModel as any)[field] = e;
-          }
+          (props.formModel as any)[field] = e && e.target ? e.target.value : e;
         },
       };
       const Comp = componentMap.get(component);
@@ -189,22 +206,9 @@ export default defineComponent({
       propsData.placeholder = placeholder;
       propsData.codeField = field;
       propsData.formValues = unref(getValuesRef);
-
       const bindValue = {
-        [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
+        [isCheck ? 'checked' : 'value']: handleValue(component, field),
       };
-      // TODO先兼容antd的警告，后面官方修复后删除
-      if (component === 'Select') {
-        if (Reflect.has(propsData, 'options')) {
-          propsData.options = propsData.options.map((item: any) => {
-            return {
-              key: item.value,
-              ...item,
-            };
-          });
-        }
-      }
-
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }
