@@ -1,14 +1,28 @@
-## Wip
+## 2.0.0-rc.9 (2020-11-9)
+
+### ✨ Features
+
+- 菜单 trigger 可以选择位置
+- 增加富文本嵌入表单的示例
+- 表单组件 schema 增加 `required`属性。简化配置
+- openModal 和 openDrawer 第二个参数可以代替`transferModalData`传参到内部
+- 带参路由可以被缓存
+
+### ✨ Refactor
+
+- 重构由后台生成菜单的逻辑
+- Route Module 结构改造
 
 ### ⚡ Performance Improvements
 
 - 菜单性能继续优化,更流畅
 - 优化懒加载组件及示例
+- layout 样式微调
 
 ### 🎫 Chores
 
 - 删除菜单背景图
-- 更新`ant-design-vue`版本为`beta13`
+- 更新`ant-design-vue`版本为`beta15`
 - 更新`vite`版本为`rc.9`
 - 异常页调整
 - `BasicTitle` 色块默认不显示
@@ -22,6 +36,7 @@
 - 修复`useECharts`在`resize`时不能自适应,报错
 - 修复`useWatermark`在清空后`resize`未删除
 - 修复表单校验问题
+- 修复多级表头配置不生效问题
 
 ## 2.0.0-rc.8 (2020-11-2)
 

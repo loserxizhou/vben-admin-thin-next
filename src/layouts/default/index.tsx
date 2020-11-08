@@ -73,7 +73,7 @@ export default defineComponent({
         showSettingButton,
         multiTabsSetting: { show: showTabs },
         headerSetting: { fixed },
-        menuSetting: { split, show },
+        menuSetting: { split, hidden },
       } = unref(getProjectConfigRef);
 
       const fixedHeaderCls = fixed
@@ -82,7 +82,7 @@ export default defineComponent({
 
       const { isLock } = getLockInfo;
 
-      const showSideBar = split ? show : true;
+      const showSideBar = split ? hidden : true;
       return (
         <Layout class="default-layout relative">
           {() => (

@@ -1,9 +1,10 @@
 import type { ProjectConfig } from '/@/types/config';
 
-import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
+
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
@@ -23,6 +24,7 @@ const setting: ProjectConfig = {
   // 是否显示logo
   showLogo: true,
 
+  // 头部配置
   headerSetting: {
     fixed: true,
     // 是否显示顶部
@@ -50,8 +52,10 @@ const setting: ProjectConfig = {
     collapsedShowTitle: false,
     // 是否可拖拽
     hasDrag: false,
-    // 是否显示
+    // 是否显示 没有dom
     show: true,
+    // 是否显示 有dom
+    hidden: true,
     // 是否显示搜索框
     showSearch: true,
     // 菜单宽度
@@ -67,7 +71,9 @@ const setting: ProjectConfig = {
     // 顶部菜单布局
     topMenuAlign: 'center',
     // 折叠菜单时候隐藏搜索框
-    collapsedShowSearch: true,
+    collapsedShowSearch: false,
+    // 折叠触发器的位置
+    trigger: TriggerEnum.HEADER,
   },
   // 消息配置
   messageSetting: {
