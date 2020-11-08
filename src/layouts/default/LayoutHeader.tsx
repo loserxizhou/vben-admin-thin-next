@@ -72,9 +72,6 @@ export default defineComponent({
 
     const showHeaderTrigger = computed(() => {
       const { show, trigger, hidden } = unref(getProjectConfigRef).menuSetting;
-      console.log('======================');
-      console.log(!show, !hidden, trigger === TriggerEnum.HEADER);
-      console.log('======================');
       if (!show || !hidden) return false;
       return trigger === TriggerEnum.HEADER;
     });
