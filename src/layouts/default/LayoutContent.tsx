@@ -1,24 +1,31 @@
-import { defineComponent } from 'vue';
+import { computed, defineComponent, unref } from 'vue';
 import { Layout } from 'ant-design-vue';
-import { RouterView } from 'vue-router';
+import { FullLoading } from '/@/components/Loading/index';
 
-// hooks
+import { RouterView } from 'vue-router';
 
 import { ContentEnum } from '/@/enums/appEnum';
 import { appStore } from '/@/store/modules/app';
-// import PageLayout from '/@/layouts/page/index';
 export default defineComponent({
   name: 'DefaultLayoutContent',
   setup() {
+    const getProjectConfigRef = computed(() => {
+      return appStore.getProjectConfig;
+    });
+
     return () => {
-      const { getProjectConfig } = appStore;
-      const { contentMode } = getProjectConfig;
+      const { contentMode, openPageLoading } = unref(getProjectConfigRef);
+      const { getPageLoading } = appStore;
       const wrapClass = contentMode === ContentEnum.FULL ? 'full' : 'fixed';
       return (
-        <Layout.Content class={`layout-content ${wrapClass} `}>
-          {() => <RouterView />}
-          {/* <PageLayout class={`layout-content ${wrapClass} `} /> */}
-        </Layout.Content>
+        <div class={[`default-layout__main`]}>
+          {openPageLoading && (
+            <FullLoading class={[`default-layout__loading`, !getPageLoading && 'hidden']} />
+          )}
+          <Layout.Content class={`layout-content ${wrapClass} `}>
+            {() => <RouterView />}
+          </Layout.Content>
+        </div>
       );
     };
   },

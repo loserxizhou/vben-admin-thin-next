@@ -3,7 +3,7 @@ const menu: MenuModule = {
   orderNo: 10,
   menu: {
     name: '首页',
-    path: '/dashboard',
+    path: '/dashboard/welcome',
   },
 };
 export default menu;

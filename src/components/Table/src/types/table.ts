@@ -1,6 +1,6 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import type { FormProps } from '/@/components/Form/index';
+import type { FormProps } from '/@/components/Form';
 import type {
   ColumnProps,
   TableRowSelection as ITableRowSelection,
@@ -87,7 +87,7 @@ export interface GetColumnsParams {
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
-  reload: (opt?: FetchParams) => Promise<void>;
+  // reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: () => any[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
@@ -125,7 +125,7 @@ export interface TableSetting {
 
 export interface BasicTableProps<T = any> {
   // 自定义排序方法
-  sortFn?: (sortInfo: SorterResult<any>) => any;
+  sortFn?: (sortInfo: SorterResult) => any;
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;

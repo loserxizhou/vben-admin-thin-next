@@ -8,14 +8,14 @@
   import { computed, defineComponent, PropType, ref, watch } from 'vue';
   // hooks
   import { useSetting } from '/@/hooks/core/useSetting';
-  import { useTimeout } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vueuse/core';
   import { useGo } from '/@/hooks/web/usePage';
 
   import { PageEnum } from '/@/enums/pageEnum';
-  import { MenuTypeEnum } from '../enums/menuEnum';
+  import { MenuTypeEnum } from '/@/enums/menuEnum';
 
-  import { menuStore } from '../store/modules/menu';
-  import { appStore } from '../store/modules/app';
+  import { menuStore } from '/@/store/modules/menu';
+  import { appStore } from '/@/store/modules/app';
 
   export default defineComponent({
     name: 'Logo',
@@ -42,7 +42,7 @@
         () => props.showTitle,
         (show: boolean) => {
           if (show) {
-            useTimeout(() => {
+            useTimeoutFn(() => {
               showRef.value = show;
             }, 280);
           } else {
@@ -73,7 +73,7 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../design/index.less';
+  @import (reference) '../../design/index.less';
 
   .app-logo {
     display: flex;

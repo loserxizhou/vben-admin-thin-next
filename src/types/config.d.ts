@@ -24,6 +24,7 @@ export interface MenuSetting {
   topMenuAlign: 'start' | 'center' | 'end';
   collapsedShowSearch: boolean;
   trigger: TriggerEnum;
+  accordion: boolean;
 }
 
 export interface MultiTabsSetting {
@@ -54,6 +55,10 @@ export interface HeaderSetting {
   showNotice: boolean;
 }
 export interface ProjectConfig {
+  // header背景色
+  headerBgColor: string;
+  // 左侧菜单背景色
+  menuBgColor: string;
   // 是否显示配置按钮
   showSettingButton: boolean;
   // 权限模式
@@ -96,8 +101,6 @@ export interface ProjectConfig {
   routerTransition: RouterTransitionEnum;
   // 是否开启登录安全校验
   openLoginVerify: boolean;
-  // 是否监听网络变化
-  listenNetWork: boolean;
   // 是否开启页面切换loading
   openPageLoading: boolean;
   // 是否开启回到顶部

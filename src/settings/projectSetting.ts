@@ -7,6 +7,16 @@ import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
+  // color
+  // TODO 主题色
+  themeColor: primaryColor,
+
+  // header bg color
+  headerBgColor: '#ffffff',
+
+  // sidebar menu bg color
+  menuBgColor: '#273352',
+
   // Whether to show the configuration button
   showSettingButton: true,
   // 权限模式
@@ -15,8 +25,7 @@ const setting: ProjectConfig = {
   grayMode: false,
   // 色弱模式
   colorWeak: false,
-  // 主题色
-  themeColor: primaryColor,
+
   // 是否取消菜单,顶部,多标签页显示, 用于可能内嵌在别的系统内
   fullContent: false,
   // content mode
@@ -59,7 +68,7 @@ const setting: ProjectConfig = {
     // 是否显示搜索框
     showSearch: true,
     // 菜单宽度
-    menuWidth: 200,
+    menuWidth: 210,
     // 菜单模式
     mode: MenuModeEnum.INLINE,
     // 菜单类型
@@ -74,6 +83,8 @@ const setting: ProjectConfig = {
     collapsedShowSearch: false,
     // 折叠触发器的位置
     trigger: TriggerEnum.HEADER,
+    // 开启手风琴模式,只显示一个菜单
+    accordion: true,
   },
   // 消息配置
   messageSetting: {
@@ -116,9 +127,6 @@ const setting: ProjectConfig = {
 
   // 是否开启登录安全校验
   openLoginVerify: true,
-
-  // 是否监听网络变化
-  listenNetWork: false,
 
   // 是否开启页面切换loading
   openPageLoading: true,

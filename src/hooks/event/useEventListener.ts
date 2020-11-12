@@ -15,7 +15,7 @@ export interface UseEventParams {
   isDebounce?: boolean;
   wait?: number;
 }
-export function useEvent({
+export function useEventListener({
   el = window,
   name,
   listener,
@@ -41,7 +41,7 @@ export function useEvent({
 
     const removeWatch = watch(
       element,
-      (v, ov, cleanUp) => {
+      (v, _ov, cleanUp) => {
         if (v) {
           !unref(isAddRef) && addEventListener(v);
           cleanUp(() => {

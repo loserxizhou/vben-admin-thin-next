@@ -1,13 +1,13 @@
 import { defineComponent, unref, computed, ref } from 'vue';
 
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
-import Logo from '/@/layouts/Logo.vue';
+import Logo from '/@/layouts/logo/index.vue';
 import UserDropdown from './UserDropdown';
-import LayoutMenu from './LayoutMenu';
+import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
-import LockAction from './actions/LockActionItem';
-import LayoutTrigger from './LayoutTrigger';
-import NoticeAction from './actions/notice/NoticeActionItem.vue';
+import LockAction from './LockActionItem';
+import LayoutTrigger from '../LayoutTrigger';
+import NoticeAction from './notice/NoticeActionItem.vue';
 import {
   RedoOutlined,
   FullscreenExitOutlined,
@@ -18,14 +18,15 @@ import {
 
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
+import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useRouter } from 'vue-router';
-import { useModal } from '/@/components/Modal/index';
+import { useModal } from '/@/components/Modal';
 
 import { appStore } from '/@/store/modules/app';
 import { errorStore } from '/@/store/modules/error';
 
 import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import './index.less';
 export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {

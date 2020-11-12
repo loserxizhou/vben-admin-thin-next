@@ -1,21 +1,23 @@
 import type { AppRouteModule } from '/@/router/types';
 
-export default {
-  // layout: {
-  //   path: '/dashboard',
-  //   name: 'Dashboard',
-  //   component: () => import('/@/views/dashboard/welcome/index.vue'),
-  //   meta: {
-  //     affix: true,
-  //     icon: 'ant-design:home-outlined',
-  //     title: '首页',
-  //   },
-  // },
+import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+
+const dashboard: AppRouteModule = {
+  layout: {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: PAGE_LAYOUT_COMPONENT,
+    redirect: '/dashboard/workbench',
+    meta: {
+      icon: 'ant-design:home-outlined',
+      title: 'Dashboard',
+    },
+  },
 
   routes: [
     {
-      path: '/dashboard',
-      name: 'Dashboard',
+      path: '/welcome',
+      name: 'Welcome',
       component: () => import('/@/views/dashboard/welcome/index.vue'),
       meta: {
         affix: true,
@@ -24,4 +26,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default dashboard;
