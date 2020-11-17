@@ -68,8 +68,8 @@ export interface SorterResult {
 export interface RenderEditableCellParams {
   dataIndex: string;
   component?: ComponentType;
-  componentOn?: { [key: string]: Fn };
   componentProps?: any;
+  placeholder?: string;
 }
 
 export interface FetchParams {
@@ -87,16 +87,16 @@ export interface GetColumnsParams {
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
-  // reload: (opt?: FetchParams) => Promise<void>;
-  getSelectRows: () => any[];
+  reload: (opt?: FetchParams) => Promise<void>;
+  getSelectRows: <T = any>() => T[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
-  setTableData: (values: any[]) => void;
+  setTableData: <T = any>(values: T[]) => void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
-  getDataSource: () => any[];
+  getDataSource: <T = any>() => T[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;
@@ -126,6 +126,8 @@ export interface TableSetting {
 export interface BasicTableProps<T = any> {
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
+  // 取消表格的默认padding
+  inset?: boolean;
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;

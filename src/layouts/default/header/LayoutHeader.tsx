@@ -105,6 +105,9 @@ export default defineComponent({
 
       const width = unref(widthRef);
 
+      const showLeft =
+        (mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu) ||
+        unref(showHeaderTrigger);
       return (
         <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
           {() => (
@@ -114,12 +117,16 @@ export default defineComponent({
                   <Logo class={`layout-header__logo`} theme={headerTheme} />
                 )}
 
-                <div class="layout-header__left">
-                  {unref(showHeaderTrigger) && <LayoutTrigger theme={headerTheme} sider={false} />}
-                  {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
-                    <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
-                  )}
-                </div>
+                {showLeft && (
+                  <div class="layout-header__left">
+                    {unref(showHeaderTrigger) && (
+                      <LayoutTrigger theme={headerTheme} sider={false} />
+                    )}
+                    {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
+                      <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
+                    )}
+                  </div>
+                )}
 
                 {unref(showTopMenu) && (
                   <div

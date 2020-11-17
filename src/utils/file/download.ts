@@ -1,5 +1,32 @@
+import { dataURLtoBlob, urlToBase64 } from './stream';
+
 /**
- * 根据后台接口文件流下载
+ * Download online pictures
+ * @param url
+ * @param filename
+ * @param mime
+ * @param bom
+ */
+export function downloadByOnlineUrl(url: string, filename: string, mime?: string, bom?: BlobPart) {
+  urlToBase64(url).then((base64) => {
+    downloadByBase64(base64, filename, mime, bom);
+  });
+}
+
+/**
+ * Download pictures based on base64
+ * @param buf
+ * @param filename
+ * @param mime
+ * @param bom
+ */
+export function downloadByBase64(buf: string, filename: string, mime?: string, bom?: BlobPart) {
+  const base64Buf = dataURLtoBlob(buf);
+  downloadByData(base64Buf, filename, mime, bom);
+}
+
+/**
+ * Download according to the background interface file stream
  * @param {*} data
  * @param {*} filename
  * @param {*} mime
@@ -27,7 +54,7 @@ export function downloadByData(data: BlobPart, filename: string, mime?: string, 
 }
 
 /**
- * 根据文件地址下载文件
+ * Download file according to file address
  * @param {*} sUrl
  */
 export function downloadByUrl({
@@ -43,7 +70,7 @@ export function downloadByUrl({
   const isSafari = window.navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
   if (/(iP)/g.test(window.navigator.userAgent)) {
-    console.error('您的浏览器不支持下载!');
+    console.error('Your browser does not support download!');
     return false;
   }
   if (isChrome || isSafari) {
