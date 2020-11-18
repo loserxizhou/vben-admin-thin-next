@@ -33,7 +33,7 @@ import {
   Result,
   Empty,
 } from 'ant-design-vue';
-import { getApp } from '/@/useApp';
+import { getApp } from '/@/setup/App';
 
 const compList = [Icon, Button, AntButton.Group, AppFooter];
 
